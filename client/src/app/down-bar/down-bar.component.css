@@ -1,0 +1,21 @@
+app-down-bar {
+    padding-top:50px;
+}
+
+
+
+.mat-toolbar {
+    background-color: red;
+}
+
+.filler {
+    flex: 1 1 auto;
+}
+
+.gap {
+    margin-right: 10px;
+}
+
+.button mat-button {
+    background-color: azure
+}
