@@ -1,0 +1,23 @@
+{
+  "name": "e-learning-sql-injections-portal",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JoeyHa/E-learning-sql-injections-Portal.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JoeyHa/E-learning-sql-injections-Portal/issues"
+  },
+  "homepage": "https://github.com/JoeyHa/E-learning-sql-injections-Portal#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "tedious": "^6.3.0"
+  }
+}
