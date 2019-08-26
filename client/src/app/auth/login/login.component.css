@@ -1,0 +1,28 @@
+mat-card.mat-card {
+    width: 30%;
+    margin-top: 11%;
+    right: -33%;
+    height: 500px;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+mat-spinner {
+    margin: auto;
+}
+
+#passwordField {
+    padding-top: 35px;
+    padding-bottom: 40px;
+}
+
+#emailField {
+    padding-top: 50px;
+}
+
+#loginBtn {
+    font-size: 23px;
+    width: 100%;
+}

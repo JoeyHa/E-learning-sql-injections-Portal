@@ -14,7 +14,12 @@ h1 {
 
 .mat-raised-button {
     font-size: 33px;
-    width: 28%;
+    width: 31%;
     padding: 14px;
     padding-top: 1%;
+    top: 240px;
+}
+
+#headline {
+    color: white;
 }
