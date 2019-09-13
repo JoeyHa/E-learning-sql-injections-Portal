@@ -1,26 +1,49 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { MatToolbarModule, MatTableModule } from "@angular/material";
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import {
+  MatInputModule,
+  MatCardModule,
+  MatButtonModule,
+  MatToolbarModule,
+  MatExpansionModule,
+  MatProgressSpinnerModule,
+  MatPaginatorModule,
+  MatTableModule,
+  MatIconModule
+} from '@angular/material';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ScoreTable } from "./ScoreTable/ScoreTable.component";
-import { ToolbarComponent } from './toolbar/toolbar.component';
-import { MatButtonModule, MatIconModule } from "@angular/material";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { DownBarComponent } from './down-bar/down-bar.component';
 import { MainComponent } from './main/main.component';
 
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
+import { PageNotFoundComponent } from './main/page-not-found/page-not-found.component';
+import { ScoreTable } from './main/ScoreTable/ScoreTable.component';
+import { ToolbarComponent } from './main/toolbar/toolbar.component';
+
+
 @NgModule({
-  declarations: [AppComponent, ScoreTable, ToolbarComponent, DownBarComponent, MainComponent],
+  declarations: [AppComponent, ScoreTable, ToolbarComponent, MainComponent, LoginComponent,  RegisterComponent, PageNotFoundComponent],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
     FormsModule,
     ReactiveFormsModule,
-    MatTableModule
+    MatProgressSpinnerModule,
+    MatTableModule,
+    MatInputModule,
+    MatCardModule,
+    HttpClientModule,
+    MatPaginatorModule,
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent]
