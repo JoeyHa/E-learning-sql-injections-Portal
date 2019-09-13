@@ -1,16 +1,23 @@
-<mat-card>
-    <h1 style="text-align: center">E-learning SQL Injections -Login</h1>
-    <h2 style="text-align: center">Enter your Login Details</h2>
-    <mat-spinner *ngIf="isLoading"></mat-spinner>
-    <form (submit)="onLogin(loginForm)" #loginForm="ngForm" *ngIf="!isLoading">
-        <mat-form-field id="emailField">
-            <input matInput name="email" ngModel type="email" placeholder="E-Mail" #emailInput="ngModel" required email>
-            <mat-error *ngIf="emailInput.invalid">Please enter a valid email.</mat-error>
-        </mat-form-field>
-        <mat-form-field id="passwordField">
-            <input type="password" name="password" ngModel matInput placeholder="Password" #passwordInput="ngModel" required>
-            <mat-error *ngIf="passwordInput.invalid">Please enter a valid password.</mat-error>
-        </mat-form-field>
-        <button id="loginBtn" mat-raised-button color="accent" type="submit" *ngIf="!isLoading">Login</button>
+<div id="loginDiv">
+    <form id="loginForm" #loginForm="ngForm" (ngSubmit)="loginForm.valid && onSubmit(loginForm)">
+        <p>Login</p>
+        <input type="text" email="ngModel" [(ngModel)]="userService.selectedUser.email" name="email" placeholder="Email" required [pattern]="emailRegex" [ngClass]="{ 'invalid-textbox' :loginForm.submitted && !email.valid } ">
+        <!-- <div *ngIf="loginForm.submitted && email.errors ">
+            <label *ngIf="email.errors.required " class="validation-message ">This field is required.</label>
+            <label *ngIf="email.errors.pattern " class="validation-message ">Invalid email address.</label>
+        </div> -->
+        <input type="password" password="ngModel " [(ngModel)]="userService.selectedUser.password " name="password" placeholder="Password" minlength="4" required [ngClass]="{ 'invalid-textbox' :loginForm.submitted && !password.valid } ">
+        <!-- <div *ngIf="loginForm.submitted && password.errors ">
+            <label *ngIf="password.errors.required " class="validation-message ">This field is required.</label>
+            <label *ngIf="password.errors.minlength " class="validation-message ">Enter at least 5 characters.</label>
+        </div> -->
+        <div id="registerOpt">
+            Not a member yet?
+            <a routerLink="/register">Register Now!</a>
+        </div>
+        <input type="submit" value="Login">
     </form>
-</mat-card>
+</div>
+<div class="alert" *ngIf="serverErrorMessages">
+    {{serverErrorMessages}}
+</div>

@@ -1,6 +1,6 @@
 class User {
 
-    constructor() {}
+    // constructor() {}
     constructor(email, password, firstName, lastName) {
         this.email = email;
         this.password = password;
@@ -11,36 +11,36 @@ class User {
     //ADD methods here 
 
     get email() {
-        return this.email;
+        return this._email;
     }
     set email(emailValue) {
-        if (!emailValue.contains("@")) {
+        if (!emailValue.includes("@")) {
             console.log("Email Not valid");
             return;
         }
-        this.email = emailValue;
+        this._email = emailValue;
     }
     get password() {
-        return this.password;
+        return this._password;
     }
     set password(passwordValue) {
-        if (passwordValue.length() < 8) {
+        if (passwordValue.length < 8) {
             console.log("password Too Short!");
             return;
         }
-        this.password = passwordValue;
+        this._password = passwordValue;
     }
     get firstName() {
-        return this.firstName;
+        return this._firstName;
     }
     set firstName(firstNameValue) {
-        this.firstName = firstNameValue;
+        this._firstName = firstNameValue;
     }
     get lastName() {
-        return this.lastName;
+        return this._lastName;
     }
     set lastName(lastNameValue) {
-        this.lastName = lastNameValue;
+        this._lastName = lastNameValue;
     }
 
 }

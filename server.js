@@ -1,46 +1,36 @@
-const express = require('express')
-var session = require('express-session');
+var express = require("express");
+var login = require('./backend/routes/loginroutes');
 var bodyParser = require('body-parser');
-var path = require('path');
-const app = express()
-const port = 3000
+var app = express();
 
-app.use(session({
-    secret: 'secret',
-    resave: true,
-    saveUninitialized: true
-}));
+
 app.use(bodyParser.urlencoded({
     extended: true
 }));
+
 app.use(bodyParser.json());
-
-
-app.route('/register').post((req, res) => {
-    res.send(201, req.body)
-})
-
-
-app.post('/submit', function(request, response) {
-    var username = request.body.username;
-    var password = request.body.password;
-    if (username && password) {
-        connection.query('SELECT * FROM Users WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
-            if (results.length > 0) {
-                request.session.loggedin = true;
-                request.session.username = username;
-                response.redirect('/home');
-            } else {
-                response.send('Incorrect Username and/or Password!');
-            }
-            response.end();
-        });
-    } else {
-        response.send('Please enter Username and Password!');
-        response.end();
-    }
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
 });
 
+var router = express.Router();
+// test route
+router.get('/', function(req, res) {
+    res.json({
+        message: 'welcome to our upload module apis'
+    });
+});
+
+//route to handle user registration
+router.post('/register', login.register);
 
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+
+router.post('/login', login.login);
+app.use('/api', router);
+
+
+
+app.listen(3000);
