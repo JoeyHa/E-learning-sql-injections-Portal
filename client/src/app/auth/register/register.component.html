@@ -1,30 +1,37 @@
-<div id="registerBlock">
-    <form id="registerForm" #signUpForm="ngForm" (ngSubmit)="signUpForm.valid && onSubmit(signUpForm)">
-        <p>Register Now</p>
-        <input type="text" firstName="ngModel " [(ngModel)]="userService.selectedUser.firstName" name="firstName" placeholder="First Name" [ngClass]="{ 'invalid-textbox' :signUpForm.submitted && !firstName.valid } ">
-        <!-- <div *ngIf="signUpForm.submitted && !firstName.valid "></div> -->
-        <input type="text" lastName="ngModel " [(ngModel)]="userService.selectedUser.lastName" name="lastName" placeholder="Last Name" [ngClass]="{ 'invalid-textbox' :signUpForm.submitted && !lastName.valid } ">
-        <!-- <div *ngIf="signUpForm.submitted && !lastName.valid "></div> -->
-        <input type="text" email="ngModel" [(ngModel)]="userService.selectedUser.email" name="email" placeholder="Email " required [pattern]="emailRegex" [ngClass]="{ 'invalid-textbox' :signUpForm.submitted && !email.valid } ">
-        <!-- <div *ngIf="signUpForm.submitted && email.errors ">
-            <label *ngIf="email.errors.required " class="validation-message ">This field is required.</label>
-            <label *ngIf="email.errors.pattern " class="validation-message ">Invalid email address.</label>
-        </div> -->
-        <input type="password" password="ngModel " [(ngModel)]="userService.selectedUser.password " name="password" placeholder="Password" minlength="5 " required [ngClass]="{ 'invalid-textbox' :signUpForm.submitted && !password.valid } ">
-        <!-- <div *ngIf="signUpForm.submitted && password.errors ">
-            <label *ngIf="password.errors.required " class="validation-message ">This field is required.</label>
-            <label *ngIf="password.errors.minlength " class="validation-message ">Enter at least 5 characters.</label>
-        </div> -->
-        <input type="submit" value="Sign Up ">
-    </form>
-</div>
-
-<!-- Success message -->
-<div class="success" *ngIf="showSucessMessage">
-    Saved successfully
-</div>
-
-<!-- Error message -->
-<div class="alert" *ngIf="serverErrorMessages">
-    {{serverErrorMessages}}
-</div>
+<h3>User Registration</h3>
+<form [formGroup]="registerForm" (ngSubmit)="onFormSubmit()">
+    <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.firstName.errors }" placeholder="Enter First Name here" />
+        <div *ngIf="submitted && fval.firstName.errors" class="invalid-feedback">
+            <div *ngIf="fval.firstName.errors.required">First Name is required</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input type="text" formControlName="lastName" class="form-control" placeholder="Enter Last Name here" />
+    </div>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.email.errors }" placeholder="Enter email here" />
+        <div *ngIf="submitted && fval.email.errors" class="invalid-feedback">
+            <div *ngIf="fval.email.errors.required">Email is required</div>
+            <div *ngIf="fval.email.errors.email">Enter valid email address</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="email">Password</label>
+        <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.password.errors }" placeholder="Enter Password here" />
+        <div *ngIf="submitted && fval.password.errors" class="invalid-feedback">
+            <div *ngIf="fval.password.errors.required">Password is required</div>
+            <div *ngIf="fval.password.errors.minlength">Password must be at least 6 characters</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <button [disabled]="loading" class="btn btn-primary">
+      <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+      Register
+    </button>
+        <a routerLink="/login" class="btn btn-link">Login to continue</a>
+    </div>
+</form>

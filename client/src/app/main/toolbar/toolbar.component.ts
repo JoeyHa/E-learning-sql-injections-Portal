@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthenticationService } from '../../auth/Authentication.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -6,10 +8,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./toolbar.component.css']
 })
 export class ToolbarComponent implements OnInit {
+  public currentUser;
+  authenticationService: AuthenticationService;
 
-  constructor() { }
+  constructor(private router: Router) { 
+    if (localStorage.getItem('currentUser') != null) {
+      this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    } else {
+      this.currentUser = null;
+    }
+  }
 
   ngOnInit() {
   }
-
+  logout() {
+    this.authenticationService.logout(this.currentUser);
+    this.router.navigate(['/login']);
+  }
 }

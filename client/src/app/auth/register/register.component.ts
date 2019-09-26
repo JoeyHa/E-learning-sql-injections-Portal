@@ -1,52 +1,54 @@
 import { Component, OnInit } from '@angular/core';
-import {  NgForm } from '@angular/forms';
-import { Router, RouterModule  } from '@angular/router';
-import {UserService } from "../user.service";
-
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { UserService } from '../user.service';
 @Component({
-  selector: 'app-sign-up',
+  selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css'],
   providers: [UserService]
 })
 export class RegisterComponent implements OnInit {
-  showSucessMessage: boolean;
-  serverErrorMessages: string;
 
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private userService: UserService,
+    private toastr: ToastrService
+  ) { }
+  registerForm: FormGroup;
+  loading = false;
+  submitted = false;
 
   ngOnInit() {
-    // tslint:disable-next-line: max-line-length
-    const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    this.registerForm = this.formBuilder.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
+    });
   }
-  constructor(private userService: UserService, private router: Router) { }
 
-  onSubmit(form: NgForm) {
-    this.userService.postUser(form.value).subscribe(
-      res => {
-        this.showSucessMessage = true;
-        setTimeout(() => this.showSucessMessage = false, 4000);
-        this.resetForm(form);
-        this.router.navigateByUrl('/login');
+  get fval() { return this.registerForm.controls; }
 
+  onFormSubmit() {
+    this.submitted = true;
+    // return for here if form is invalid
+    if (this.registerForm.invalid) {
+      return;
+    }
+    this.loading = true;
+    this.userService.RegisterUser(this.registerForm.value).subscribe(
+      (data) => {
+        alert('User Registered successfully!!');
+        this.router.navigate(['/login']);
       },
-      err => {
-        if (err.status === 400) {
-          this.serverErrorMessages = err.error.join('<br/>');
-        }
-        else {
-          this.serverErrorMessages = 'Something went wrong.Please contact admin.';
-        }
+      (error) => {
+        this.toastr.error(error.error.message, 'Error');
+        this.loading = false;
       }
-    )};
+    )
 
-  resetForm(form: NgForm) {
-    this.userService.selectedUser = {
-      email: '',
-      password: '',
-      firstName: '',
-      lastName: ''
-    };
-    form.resetForm();
-    this.serverErrorMessages = '';
   }
+
 }

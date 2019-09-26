@@ -1,7 +1,8 @@
-form#loginForm {
-    width: 79%;
-    padding: 12% 0% 19% 26%;
-    display: block;
+div#all {
+    width: 400px;
+    height: 400px;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 input[type=submit],
@@ -39,7 +40,7 @@ input[type=password] {
     border-radius: 5px 5px 5px 5px;
 }
 
-p {
+p#headLine {
     margin: 0 0 10px;
     text-align: center;
     font-size: 50px;
