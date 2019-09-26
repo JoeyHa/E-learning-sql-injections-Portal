@@ -7,9 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainComponent implements OnInit {
   title = 'E-learning-sql-injections';
+  public currentUser;
 
-
-  constructor() { }
+  constructor() {
+    
+  }
 
   ngOnInit() {
   }

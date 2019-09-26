@@ -1,3 +1,9 @@
-<mat-toolbar>
-    <button mat-raised-button>Sign Out</button>
+<mat-toolbar color="primary">
+    <span class="gap" style="cursor: pointer" routerLink="/home" *ngIf="!started">Home</span>
+    <span routerLink="/resources" style="cursor: pointer">Resources</span>
+    <span class="filler"></span>
+    <span style="cursor: pointer" (click)='logout()'>Log Out</span>
 </mat-toolbar>
+<div class="welcome">
+    <p>Welcome, {{currentUser.firstName}}!</p><br>
+</div>

@@ -1,0 +1,11 @@
+<app-toolbar></app-toolbar>
+<div>
+    <div id='intro'>
+        <p>Explanations text here</p>
+    </div>
+    <button (click)='startQuiz()'>Start now</button>
+    <div id="questions" *ngIf="showQuestionComp">
+        <app-questions></app-questions>
+    </div>
+    <div id="timer">{{timeLeft}}</div>
+</div>

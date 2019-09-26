@@ -1,42 +1,48 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-// import { AuthService } from '../auth.service';
-import { UserService } from '../user.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+
+import { AuthenticationService } from '../Authentication.service';
+import { CssSelector } from '@angular/compiler';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
-  providers: [UserService]
-
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup;
-  isSubmitted = false;
-  serverErrorMessages: string;
-  
-  constructor(
-    // private authService: AuthService,
-    private router: Router,
-    private formBuilder: FormBuilder,
-    private route: ActivatedRoute, private userService: UserService) { }
+    loginForm: FormGroup;
+    loading = false;
+    submitted = false;
+    returnUrl: string;
 
-ngOnInit() {}
+    constructor(
+        private formBuilder: FormBuilder,
+        private route: ActivatedRoute,
+        private router: Router,
+        private authenticationService: AuthenticationService,
+        private toastr: ToastrService
+    ) { }
 
-onSubmit(form: NgForm) {
-    this.userService.loginUser(form.value).subscribe(
-        res => {
-            this.router.navigateByUrl('/home');
-        },
-        err => {
-            if (err.status === 400) {
-                this.serverErrorMessages = err.error.join('<br/>');
-            }
-            else {
-                this.serverErrorMessages = 'Wrong Password or Emails';
-            }
+    ngOnInit() {
+        this.loginForm = this.formBuilder.group({
+            email: ['', Validators.required],
+            password: ['', Validators.required]
+        });
+
+    }
+
+    // for accessing to form fields
+    get fval() { return this.loginForm.controls; }
+
+    onFormSubmit() {
+        this.submitted = true;
+        if (this.loginForm.invalid) {
+            return;
         }
-    )};
+        this.loading = true;
+        this.authenticationService.login(this.fval.email.value, this.fval.password.value);
+        this.router.navigate(['/home']);
+    }
 }
-

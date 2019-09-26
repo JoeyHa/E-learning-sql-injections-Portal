@@ -4,15 +4,18 @@ import { LoginComponent } from './auth/login/login.component';
 import { MainComponent } from './main/main.component';
 import { PageNotFoundComponent } from './main/page-not-found/page-not-found.component';
 import { RegisterComponent } from './auth/register/register.component';
-
+import { QuizComponent} from './main/quiz/quiz.component'
+import { ResourcesComponent } from './main/resources/resources.component';
+import { AuthGuard } from './auth/guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'home', component: MainComponent },
+  { path: 'home', component: MainComponent, canActivate: [AuthGuard]},
+  { path: 'quiz', component: QuizComponent, canActivate: [AuthGuard] },
+  { path: 'resources', component: ResourcesComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
-
 
 ];
 
