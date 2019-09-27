@@ -1,11 +1,7 @@
 <app-toolbar></app-toolbar>
-<div>
-    <div id='intro'>
-        <p>Explanations text here</p>
+<div class="outerSqure" *ngIf="isOn">
+    <div id="headline" style="text-align:center">
+        <p id="introTxt" style="text-align: center">This Quiz includes 5 multi Choise Questions<br> Once you press the button "Start Now", a 5 minutes timer will start and will not stop<br> Your goal answer correctly & being as fast a possible<br> Are you ready? <br>
     </div>
-    <button (click)='startQuiz()'>Start now</button>
-    <div id="questions" *ngIf="showQuestionComp">
-        <app-questions></app-questions>
-    </div>
-    <div id="timer">{{timeLeft}}</div>
+    <button id="quizBtn" routerLink="/questions" (click)='isOn= false'>Start now</button>
 </div>

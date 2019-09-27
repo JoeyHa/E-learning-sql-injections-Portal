@@ -1,25 +1,48 @@
-body {
+/* body {
     height: 100%;
-    /* background-color: black; */
+    /* background-color: black; 
     margin: 0;
-}
+} 
+*/
 
 h1 {
-    color: red;
+    color: darkgreen;
+    font-weight: bold;
+    font-family: serif;
 }
 
 .headline {
     padding-bottom: 10%;
 }
 
-.mat-raised-button {
+.quizBtn {
     font-size: 33px;
+    font-family: serif;
     width: 31%;
     padding: 14px;
     padding-top: 1%;
     top: 240px;
 }
 
-#headline {
-    color: red;
+.intro {
+    background-color: white;
+    opacity: 0.83;
+    color: darkgreen;
+    width: 80%;
+    margin: 0 auto;
+    height: 80%;
+}
+
+p#introTxt {
+    font-size: 27px;
+    font-family: serif;
+}
+
+button#quizBtn {
+    padding: 0 auto;
+    width: 35%;
+    margin: 12% 31%;
+    font-weight: bold;
+    font-size: 35px;
+    font-family: serif;
 }

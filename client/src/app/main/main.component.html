@@ -1,12 +1,11 @@
 <app-toolbar></app-toolbar>
-<div style="text-align:center">
+<div class="intro">
     <div id="headline" style="text-align:center">
-        <h1>
-            Welcome to {{ title }}!
-        </h1>
-        <p>You can take quizes...</p>
+        <h1>{{ title }}</h1>
+        <p id="introTxt" style="text-align: center">This portal's main goal is to teach and rise awareness to the dangers of SQL injections.<br> you can learn more about SQL Injections is "Resource" part.<br> If you Feel Ready, Test your knowledge with this Quiz.<br> Good Luck!
+        </p>
     </div>
-    <button mat-raised-button routerLink="/quiz">Take a Quiz now!</button>
+    <button id="quizBtn" routerLink="/quiz">Take a Quiz now!</button>
 
     <!-- <app-ScoreTable></app-ScoreTable> -->
 </div>

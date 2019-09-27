@@ -4,9 +4,21 @@
 
 .gap {
     margin-right: 10px;
+    cursor: pointer;
+    width: 60px;
 }
 
 .welcome {
     padding-left: 10px;
-    font-size: 19px;
+    font-size: 1px;
+    font-family: serif;
+}
+
+.mat-toolbar-row,
+.mat-toolbar-single-row {
+    height: 75px;
+    opacity: 0.83;
+    color: darkgreen;
+    font-weight: bold;
+    font-family: serif;
 }

@@ -1,20 +1,11 @@
 var connection = require('../DB/config');
 
-// connection.connect(function(err) {
-//     if (err) throw err;
-//     console.log("Connected!");
-// });
 
 exports.getQuestion = function(req, res) {
-    var question = {
-        "questionID": req.body.questionID,
-        "questionName": req.body.questionName,
-        "option1": req.body.option1,
-        "option2": req.body.option2,
-        "option3": req.body.option3,
-        "option4": req.body.option4,
-    };
-    connection.query('SELECT * FROM questions WHERE questionID = ? ', question.questionID, function(err, rows) {
+    var questionID = req.body.qid;
+
+    console.log(questionID);
+    connection.query('SELECT * FROM questions WHERE questionID = ?', questionID, function(err, results) {
         if (err) {
             console.log("error ocurred", err);
             res.send({
@@ -23,12 +14,19 @@ exports.getQuestion = function(req, res) {
             });
             connection.end();
         } else {
-            console.log('The solution is: ', results);
-            res.send({
-                "code": 200,
-                "success": "getQuestion - sucessfull"
-            });
-            connection.end();
+            if (results.length > 0) {
+                res.send({
+                    "questionID": results[0].questionID,
+                    "questionName": results[0].questionName,
+                    "option1": results[0].option1,
+                    "option2": results[0].options2,
+                    "option3": results[0].options3,
+                    "option4": results[0].options4,
+                    "code": 200,
+                    "status": "Question Sent sucessfull"
+                });
+                console.log("Question Sent sucessfull");
+            }
         }
     });
 

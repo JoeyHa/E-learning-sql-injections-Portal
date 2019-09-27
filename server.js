@@ -3,8 +3,6 @@ var login = require('./backend/routes/loginroutes');
 var questions = require('./backend/routes/questionroutes');
 var bodyParser = require('body-parser');
 var app = express();
-
-
 app.use(bodyParser.urlencoded({
     extended: true
 }));
@@ -18,17 +16,14 @@ app.use(function(req, res, next) {
 });
 
 var router = express.Router();
-// test route
-router.get('/', function(req, res) {
-    res.json({
-        message: 'welcome to our upload module apis'
-    });
-});
+
 
 //route to handle user registration
 router.post('/register', login.register);
 router.post('/login', login.login);
-router.post('/questions', questions.getQuestion);
+
+
+router.post('/question', questions.getQuestion);
 
 app.use('/api', router);
 
