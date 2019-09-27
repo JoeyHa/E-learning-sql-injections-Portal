@@ -1,9 +1,9 @@
-<mat-toolbar color="primary">
-    <span class="gap" style="cursor: pointer" routerLink="/home" *ngIf="!started">Home</span>
-    <span routerLink="/resources" style="cursor: pointer">Resources</span>
+<mat-toolbar>
+    <span class="gap" routerLink="/home" *ngIf="!started">Home</span>
+    <span routerLink="/resources" id="resources" style="cursor: pointer">Resources</span>
     <span class="filler"></span>
     <span style="cursor: pointer" (click)='logout()'>Log Out</span>
 </mat-toolbar>
 <div class="welcome">
-    <p>Welcome, {{currentUser.firstName}}!</p><br>
+    <p style="color:white; font-size: 25px;font-family: serif;font-weight: bold;">Welcome, {{currentUser.firstName}}!</p><br>
 </div>
