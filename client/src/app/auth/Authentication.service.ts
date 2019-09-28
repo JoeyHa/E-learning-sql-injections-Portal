@@ -34,6 +34,7 @@ export class AuthenticationService {
              } else {
                 if (res.code == '400' || res.code == '204') {
                      console.log(res.status);
+                     this.user = null;
                 }
              }
             });

@@ -12,7 +12,8 @@ import {
   MatProgressSpinnerModule,
   MatPaginatorModule,
   MatTableModule,
-  MatIconModule
+  MatIconModule,
+  MatRadioModule
 } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -60,6 +61,7 @@ import { ToastrModule } from 'ngx-toastr';
     HttpClientModule,
     MatPaginatorModule,
     MatExpansionModule,
+    MatRadioModule,
     ToastrModule.forRoot()
   ],
   providers: [],

@@ -23,7 +23,7 @@ router.post('/register', login.register);
 router.post('/login', login.login);
 
 
-router.post('/question', questions.getQuestion);
+router.get('/questions', questions.getQuestions);
 
 app.use('/api', router);
 

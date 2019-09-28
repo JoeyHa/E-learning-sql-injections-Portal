@@ -14,15 +14,20 @@ export class QuestionsComponent implements OnInit {
   showQuestionComp: boolean;
   started: boolean;
   public question;
+  public questions: Question[];
+  public index:number = 0;
+  selectedOption:string;
+  score:number = 0;
+  finalScore: number;
 
   constructor(private questionService: QuestionService) {
-    
     this.startQuiz();
-    if (localStorage.getItem('question') != null) {
-      this.question = JSON.parse(localStorage.getItem('question'));
+    if (localStorage.getItem('questions') != null) {
+      this.questions = JSON.parse(localStorage.getItem('questions'));
+      console.log(this.questions);
     }
     else {
-      this.question = null;
+      this.questions = null;
     }
    }
 
@@ -49,9 +54,23 @@ export class QuestionsComponent implements OnInit {
 
   startQuiz() {
     this.startTimer();
-    var qid = Math.floor(Math.random() * 5) + 1;
-    this.questionService.getQuestionFromDB(qid);
+    this.questionService.getQuestionsFromDB();
 
   }
-
+  next() {
+    if (this.selectedOption === this.questions[this.index].currectAnswer)
+    {
+      this.score++;
+    }
+    this.index++;
+  }
+  back() {
+    this.index--;
+  }
+  finishQuiz()
+  {
+    this.pauseTimer();
+    this.finalScore = this.score + this.timeLeft;
+    console.log(this.finalScore);
+  }
 }

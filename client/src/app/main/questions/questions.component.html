@@ -1,11 +1,41 @@
 <app-toolbar></app-toolbar>
 <div class="outerSqure">
+    <div class="qDisplay">
+        <div class="quiz-body">
+            <form>
+                <div class="form-group">
+                    <div class="quiz-info">
+                        <p id="timer" style="text-align: right;">{{timeLeft}}</p>
+                        <p style="font-size: 30px;">Question {{questions[index].questionID}}/5</p>
 
-    <div id="timer">{{timeLeft}}</div>
-    <div>{{question.questionName}} </div>
-    <div>{{question.option1}} </div>
-    <div>{{question.option2}} </div>
-    <div>{{question.option3}} </div>
-    <div>{{question.option4}} </div>
+                    </div>
+                    <mat-radio-group name="selectedOption" [(ngModel)]="selectedOption">
+                        <ul class="questions">
+                            <p style="text-align: left;font-size: 30px;padding-top: 7px;">{{questions[index].questionName}}</p>
+                            <ol>
+                                <mat-radio-button color="primary" id="option1" value="option1"></mat-radio-button><label for="option1">{{questions[index].option1}}</label>
+                            </ol>
+                            <ol>
+                                <mat-radio-button color="primary" id="option2" value="options2"></mat-radio-button><label for="option2">{{questions[index].options2}}</label>
+                            </ol>
+                            <ol>
+                                <mat-radio-button color="primary" id="option3" value="options3"></mat-radio-button><label for="option3">{{questions[index].options3}}</label>
+                            </ol>
+                            <ol>
+                                <mat-radio-button color="primary" id="option4" value="options4"></mat-radio-button><label for="option4">{{questions[index].options4}}</label>
+                            </ol>
+                        </ul>
+                    </mat-radio-group>
+                    <div>slected answer is: {{selectedOption}}</div>
+                    <div>score: {{score}}</div>
+                </div>
+            </form>
+        </div>
+        <div>
+            <button class="navBtn" (click)="next()" *ngIf="index != 4">Next</button>
+            <button class="navBtn" (click)="finishQuiz()" *ngIf="index == 4">Finish</button>
+            <button class="navBtn" (click)="back()" *ngIf="index >= 1">Back</button>
+        </div>
+    </div>
 
 </div>

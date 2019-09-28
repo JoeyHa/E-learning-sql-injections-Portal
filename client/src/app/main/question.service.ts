@@ -3,29 +3,22 @@ import { environment } from '../../environments/environment';
 import { Question } from './question.model';
 
 export class QuestionService {
-     SelectedQuestion: Question;
+     questions: Question[];
 
      constructor(private http: HttpClient) { }
 
-     getQuestionFromDB(qid: number) {
-          this.http.post(environment.apiBaseUrl + '/question', {qid})
+     getQuestionsFromDB() {
+          this.http.get(environment.apiBaseUrl + '/questions')
           .subscribe((res: any) => {
                if (res.code == '200') {
-                    this.SelectedQuestion = {
-                         questionID: res.questionID,
-                         questionName: res.questionName,
-                         option1: res.option1,
-                         option2: res.option2,
-                         option3: res.option3,
-                         option4: res.option4
-                    };
-                    localStorage.setItem('question', JSON.stringify(this.SelectedQuestion));
+                    this.questions = res.questions;
+                    localStorage.setItem('questions', JSON.stringify(this.questions));
                } else {
                     if (res.code == '400' || res.code == '204') {
                          console.log(res.status);
                     }
                }
           });
-          return this.SelectedQuestion;
+          return this.questions;
      }
 }

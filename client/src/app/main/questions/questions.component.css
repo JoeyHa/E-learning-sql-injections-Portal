@@ -4,5 +4,31 @@
     color: darkgreen;
     width: 80%;
     margin: 0 auto;
-    height: 80%;
+    height: 60%;
+}
+
+.quiz-info {
+    font-size: 33px;
+    padding-top: 5px;
+}
+
+ul.questions {
+    font-size: 17px;
+    padding-top: 3px;
+}
+
+button.navBtn {
+    width: 10%;
+    margin-left: 15px;
+}
+
+.mat-radio-button.mat-primary.mat-radio-checked .mat-radio-outer-circle {
+    background-color: darkgreen;
+}
+
+.mat-radio-button.mat-primary .mat-radio-inner-circle,
+.mat-radio-button.mat-primary .mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple),
+.mat-radio-button.mat-primary.mat-radio-checked .mat-radio-persistent-ripple,
+.mat-radio-button.mat-primary:active .mat-radio-persistent-ripple {
+    background-color: black;
 }

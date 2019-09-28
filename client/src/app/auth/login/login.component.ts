@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
     loading = false;
     submitted = false;
     returnUrl: string;
-
+    isAuthenticated = true;
     constructor(
         private formBuilder: FormBuilder,
         private route: ActivatedRoute,
@@ -42,7 +42,14 @@ export class LoginComponent implements OnInit {
             return;
         }
         this.loading = true;
-        this.authenticationService.login(this.fval.email.value, this.fval.password.value);
-        this.router.navigate(['/home']);
+        const user = this.authenticationService.login(this.fval.email.value, this.fval.password.value);
+        if (user != null) {
+            this.router.navigate(['/home']);
+        } else {
+            this.loading = false;
+            this.isAuthenticated = false;
+            return;
+        }
     }
+    
 }
