@@ -8,6 +8,7 @@ import { QuizComponent} from './main/quiz/quiz.component'
 import { ResourcesComponent } from './main/resources/resources.component';
 import { AuthGuard } from './auth/guard';
 import { QuestionsComponent } from './main/questions/questions.component';
+import { ResultsComponent } from './main/results/results.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'quiz', component: QuizComponent, canActivate: [AuthGuard] },
   { path: 'resources', component: ResourcesComponent, canActivate: [AuthGuard] },
   { path: 'questions', component: QuestionsComponent, canActivate: [AuthGuard] },
+  { path: 'results', component: ResultsComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 

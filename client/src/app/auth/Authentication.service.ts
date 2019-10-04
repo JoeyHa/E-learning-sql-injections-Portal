@@ -9,6 +9,7 @@ export class AuthenticationService {
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
     public user: User;
+
     constructor(private http: HttpClient) {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser') || ('null')));
         this.currentUser = this.currentUserSubject.asObservable();
@@ -16,6 +17,10 @@ export class AuthenticationService {
 
     public get currentUserValue(): User {
         return this.currentUserSubject.value;
+    }
+
+    public get currentUserID(): number {
+        return this.currentUserSubject.value.userID;
     }
 
     login(email: string, password: string)  {
@@ -27,7 +32,8 @@ export class AuthenticationService {
                      email: res.email,
                      password: res.password,
                      firstName: res.firstName,
-                     lastName: res.lastName
+                     lastName: res.lastName,
+                     level: res.level
                  };
                 localStorage.setItem('currentUser', JSON.stringify(this.user));
                 this.currentUserSubject.next(this.user);

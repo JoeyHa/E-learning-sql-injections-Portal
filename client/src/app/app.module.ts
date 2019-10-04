@@ -31,6 +31,7 @@ import { QuizComponent } from './main/quiz/quiz.component';
 import { QuestionsComponent } from './main/questions/questions.component';
 import { ResourcesComponent } from './main/resources/resources.component';
 import { ToastrModule } from 'ngx-toastr';
+import { ResultsComponent } from './main/results/results.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { ToastrModule } from 'ngx-toastr';
     PageNotFoundComponent,
     QuizComponent,
     QuestionsComponent,
-    ResourcesComponent
+    ResourcesComponent,
+    ResultsComponent
   ],
   imports: [
     BrowserModule,

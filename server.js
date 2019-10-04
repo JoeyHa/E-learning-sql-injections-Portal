@@ -1,6 +1,7 @@
 var express = require("express");
 var login = require('./backend/routes/loginroutes');
 var questions = require('./backend/routes/questionroutes');
+var results = require('./backend/routes/resultsroutes');
 var bodyParser = require('body-parser');
 var app = express();
 app.use(bodyParser.urlencoded({
@@ -21,9 +22,13 @@ var router = express.Router();
 //route to handle user registration
 router.post('/register', login.register);
 router.post('/login', login.login);
-
+router.post('/updateLevel', login.updateUserLevel);
 
 router.get('/questions', questions.getQuestions);
+router.post('/results', results.SaveResultsToDB);
+
+
+
 
 app.use('/api', router);
 

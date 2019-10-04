@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Question } from '../question.model';
 import {QuestionService} from '../question.service';
+import { Router } from '@angular/router';
+import { ResultsService} from '../results.service';
+import { AuthenticationService } from '../../auth/Authentication.service';
 @Component({
   selector: 'app-questions',
   templateUrl: './questions.component.html',
   styleUrls: ['./questions.component.css'],
-  providers: [QuestionService]
+  providers: [QuestionService,ResultsService]
 
 })
 export class QuestionsComponent implements OnInit {
@@ -15,12 +18,18 @@ export class QuestionsComponent implements OnInit {
   started: boolean;
   public question;
   public questions: Question[];
-  public index:number = 0;
-  selectedOption:string;
-  score:number = 0;
+  public index: number = 0;
+  selectedOption: string;
+  score: number = 0;
   finalScore: number;
+  public currentUser;
 
-  constructor(private questionService: QuestionService) {
+  constructor(private questionService: QuestionService, private router: Router, private resultsService: ResultsService) {
+    if (localStorage.getItem('currentUser') != null) {
+      this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    } else {
+      this.currentUser = null;
+    }
     this.startQuiz();
     if (localStorage.getItem('questions') != null) {
       this.questions = JSON.parse(localStorage.getItem('questions'));
@@ -29,6 +38,7 @@ export class QuestionsComponent implements OnInit {
     else {
       this.questions = null;
     }
+    this.score = 0;
    }
 
 
@@ -60,17 +70,36 @@ export class QuestionsComponent implements OnInit {
   next() {
     if (this.selectedOption === this.questions[this.index].currectAnswer)
     {
-      this.score++;
+      this.score += 100;
     }
     this.index++;
   }
   back() {
     this.index--;
   }
-  finishQuiz()
-  {
+
+  finishQuiz() {
     this.pauseTimer();
     this.finalScore = this.score + this.timeLeft;
-    console.log(this.finalScore);
+    localStorage.setItem('finalScore', JSON.stringify(this.finalScore));
+    localStorage.setItem('QuestionsCurrect', JSON.stringify(this.score));
+    localStorage.setItem('timeLeft', JSON.stringify(this.timeLeft));
+    this.saveUserResult();
+
   }
+  saveUserResult() {
+    var userID = this.currentUser.userID;
+    if (userID != null || userID.toString() !== 'undefined') {
+      const userResults = {
+        userID: userID,
+        finalScore: this.finalScore,
+        currectAnswers: this.score,
+        timeLeft: this.timeLeft
+      };
+      this.resultsService.SaveResultsToDB(userResults);
+      this.router.navigate(['/results']);
+    } else {
+        alert('Cant Get UserID');
+      }
+    }
 }

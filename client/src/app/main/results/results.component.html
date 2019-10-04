@@ -1,0 +1,16 @@
+<app-toolbar></app-toolbar>
+<div class="outerSqure">
+    <div class="showScore">
+        <div class="resHeadline">Quiz Results</div>
+        <strong>Final Score:</strong> {{this.finalScore}} Points, <br><strong>finish time:</strong>{{this.durationTime}} Seconds,
+        <br><strong>Currect Answers: </strong> {{this.ActualCurrectAnswers}}/5.
+    </div>
+    <div class="badRresults" *ngIf="this.currectAnswers <= 3">You can do better..
+        <div>
+            You can learn more from resources And try again !
+        </div>
+    </div>
+    <div class="goodResults" *ngIf="this.levelUp">Good Job! you just Leveled UP!
+        <p id="next">Next Quiz will be much harder..</p>
+    </div>
+</div>

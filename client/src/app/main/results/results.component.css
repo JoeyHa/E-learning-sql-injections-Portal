@@ -1,0 +1,31 @@
+.outerSqure {
+    background-color: white;
+    opacity: 0.83;
+    color: darkgreen;
+    width: 80%;
+    margin: 0 auto;
+    height: 60%;
+}
+
+.resHeadline {
+    font-size: 75px;
+    text-align: center;
+}
+
+.showScore {
+    text-align: center;
+    font-size: 45px;
+}
+
+.goodResults,
+.badRresults {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 50px;
+    color: black;
+    font-weight: bold;
+}
+
+p#next {
+    font-size: 35px;
+}
