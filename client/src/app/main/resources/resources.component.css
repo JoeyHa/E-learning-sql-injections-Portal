@@ -7,9 +7,10 @@
     height: 80%;
 }
 
-p#introTxt {
-    font-size: 27px;
+.intro {
+    font-size: 25px;
     font-family: serif;
+    padding-bottom: 10px;
 }
 
 table,
@@ -19,6 +20,7 @@ td {
     font-size: 40px;
     font-family: serif;
     margin-left: 10px;
+    padding-top: 10px;
 }
 
 td {
