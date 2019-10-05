@@ -8,6 +8,7 @@ import { AuthenticationService } from '../../auth/Authentication.service';
   styleUrls: ['./toolbar.component.css']
 })
 export class ToolbarComponent implements OnInit {
+  title = 'SQL-Injections Portal';
   public currentUser;
   authenticationService: AuthenticationService;
 
@@ -22,7 +23,7 @@ export class ToolbarComponent implements OnInit {
   ngOnInit() {
   }
   logout() {
-    this.authenticationService.logout(this.currentUser);
+    localStorage.clear();
     this.router.navigate(['/login']);
   }
 }

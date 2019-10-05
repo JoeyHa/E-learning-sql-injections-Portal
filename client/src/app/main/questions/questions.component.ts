@@ -4,11 +4,15 @@ import {QuestionService} from '../question.service';
 import { Router } from '@angular/router';
 import { ResultsService} from '../results.service';
 import { AuthenticationService } from '../../auth/Authentication.service';
+import { Results } from '../results.model';
+import { first } from 'rxjs/operators';
+import { Questions} from '../questions.model';
+
 @Component({
   selector: 'app-questions',
   templateUrl: './questions.component.html',
   styleUrls: ['./questions.component.css'],
-  providers: [QuestionService,ResultsService]
+  providers: [QuestionService, ResultsService]
 
 })
 export class QuestionsComponent implements OnInit {
@@ -16,13 +20,15 @@ export class QuestionsComponent implements OnInit {
   interval;
   showQuestionComp: boolean;
   started: boolean;
-  public question;
-  public questions: Question[];
+  public question: Question;
+  public questions: Questions;
   public index: number = 0;
   selectedOption: string;
   score: number = 0;
   finalScore: number;
   public currentUser;
+  results: Results;
+  Qlength: any;
 
   constructor(private questionService: QuestionService, private router: Router, private resultsService: ResultsService) {
     if (localStorage.getItem('currentUser') != null) {
@@ -30,14 +36,17 @@ export class QuestionsComponent implements OnInit {
     } else {
       this.currentUser = null;
     }
+    this.questionService.getQuestionsFromDB(this.currentUser.level)
+      .pipe()
+      .subscribe(
+        questions => {
+          if (questions.code == '200') {
+            this.questions = questions;
+            this.Qlength = questions.questions.length;
+            localStorage.setItem('Qlength', JSON.stringify(this.Qlength));
+          }
+        });
     this.startQuiz();
-    if (localStorage.getItem('questions') != null) {
-      this.questions = JSON.parse(localStorage.getItem('questions'));
-      console.log(this.questions);
-    }
-    else {
-      this.questions = null;
-    }
     this.score = 0;
    }
 
@@ -64,11 +73,9 @@ export class QuestionsComponent implements OnInit {
 
   startQuiz() {
     this.startTimer();
-    this.questionService.getQuestionsFromDB();
-
   }
   next() {
-    if (this.selectedOption === this.questions[this.index].currectAnswer)
+    if (this.selectedOption === this.questions.questions[this.index].currectAnswer)
     {
       this.score += 100;
     }
@@ -81,22 +88,23 @@ export class QuestionsComponent implements OnInit {
   finishQuiz() {
     this.pauseTimer();
     this.finalScore = this.score + this.timeLeft;
-    localStorage.setItem('finalScore', JSON.stringify(this.finalScore));
-    localStorage.setItem('QuestionsCurrect', JSON.stringify(this.score));
-    localStorage.setItem('timeLeft', JSON.stringify(this.timeLeft));
-    this.saveUserResult();
-
-  }
-  saveUserResult() {
-    var userID = this.currentUser.userID;
+    const userID = this.currentUser.userID;
     if (userID != null || userID.toString() !== 'undefined') {
-      const userResults = {
-        userID: userID,
+      this.results = {
+        userID: this.currentUser.userID,
         finalScore: this.finalScore,
         currectAnswers: this.score,
         timeLeft: this.timeLeft
       };
-      this.resultsService.SaveResultsToDB(userResults);
+      localStorage.setItem('results', JSON.stringify(this.results));
+      localStorage.removeItem('questions');
+      this.saveUserResult(this.results);
+    }
+  }
+  saveUserResult(res: Results) {
+    const userID = res.userID;
+    if (userID != null || userID.toString() !== 'undefined') {
+      this.resultsService.SaveResultsToDB(res);
       this.router.navigate(['/results']);
     } else {
         alert('Cant Get UserID');

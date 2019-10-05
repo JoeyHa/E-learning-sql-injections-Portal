@@ -66,15 +66,15 @@ exports.login = function(req, res) {
             });
         } else {
             if (results.length > 0) {
-                if (results[0].password == crypto.encrypt(password)) {
+                if (results[0].password == crypto.encrypt(password) && results[0].email == crypto.encrypt(email)) {
                     res.send({
                         "userID": results[0].userID,
+                        "email": results[0].email,
                         "password": results[0].password,
                         "firstName": results[0].firstName,
                         "lastName": results[0].lastName,
                         "level": results[0].level,
-                        "code": 200,
-                        "status": "login sucessfull"
+                        "code": 200
                     });
                     console.log("login function sucessfull");
                 } else {
@@ -82,12 +82,14 @@ exports.login = function(req, res) {
                         "code": 204,
                         "status": "Email and password does not match"
                     });
+                    console.log("login function fails");
                 }
             } else {
                 res.send({
                     "code": 204,
                     "status": "Email does not exits"
                 });
+                console.log("login function fails");
             }
         }
     });
@@ -96,10 +98,8 @@ exports.login = function(req, res) {
 exports.updateUserLevel = function(req, res) {
     var newLevel = req.body.level;
     var userID = req.body.userID;
-    console.log(userID);
-    console.log(newLevel);
 
-    if (newLevel == null && userID == null) {
+    if (newLevel == null || userID == null) {
         res.send({
             "code": 400,
             "failed": "error ocurred"
@@ -113,12 +113,11 @@ exports.updateUserLevel = function(req, res) {
                     "code": 400,
                     "failed": "error ocurred"
                 });
-                connection.end();
             } else {
                 console.log('The solution is: ', results);
                 res.send({
                     "code": 200,
-                    "success": "updated User Level sucessfully"
+                    "success": "updated User Level sucessfully",
                 });
             }
         });

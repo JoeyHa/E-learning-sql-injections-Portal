@@ -2,8 +2,9 @@
     <span class="gap" routerLink="/home" *ngIf="!started">Home</span>
     <span routerLink="/resources" id="resources" style="cursor: pointer">Resources</span>
     <span class="filler"></span>
+    <h1>{{ title }}</h1>
     <span style="cursor: pointer" (click)='logout()'>Log Out</span>
 </mat-toolbar>
 <div class="welcome">
-    <p style="color:white; font-size: 25px;font-family: serif;font-weight: bold;">Welcome, {{currentUser.firstName}}!</p><br>
+    <p style="color:white; font-size: 25px;font-family: serif;font-weight: bold;">Welcome, {{currentUser.firstName}}! , level: {{currentUser.level}}</p><br>
 </div>

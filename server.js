@@ -4,10 +4,14 @@ var questions = require('./backend/routes/questionroutes');
 var results = require('./backend/routes/resultsroutes');
 var bodyParser = require('body-parser');
 var app = express();
+var cors = require('cors');
+
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 
+
+app.use(cors());
 app.use(bodyParser.json());
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -24,11 +28,8 @@ router.post('/register', login.register);
 router.post('/login', login.login);
 router.post('/updateLevel', login.updateUserLevel);
 
-router.get('/questions', questions.getQuestions);
+router.post('/questions', questions.getQuestions);
 router.post('/results', results.SaveResultsToDB);
-
-
-
 
 app.use('/api', router);
 

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
-
+import { first } from 'rxjs/operators';
 import { AuthenticationService } from '../Authentication.service';
-import { CssSelector } from '@angular/compiler';
+import { pipe } from 'rxjs/internal/util/pipe';
+import { User } from '../user.model';
 
 @Component({
     selector: 'app-login',
@@ -13,17 +13,22 @@ import { CssSelector } from '@angular/compiler';
 })
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
-    loading = false;
-    submitted = false;
     returnUrl: string;
     isAuthenticated = true;
+    error: any;
+    data: any;
     constructor(
         private formBuilder: FormBuilder,
-        private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService,
-        private toastr: ToastrService
-    ) { }
+    ) {
+        if (this.authenticationService.currentUserValue) {
+            this.router.navigate(['/']);
+        }
+        else {
+            localStorage.clear();
+        }
+     }
 
     ngOnInit() {
         this.loginForm = this.formBuilder.group({
@@ -36,20 +41,22 @@ export class LoginComponent implements OnInit {
     // for accessing to form fields
     get fval() { return this.loginForm.controls; }
 
-    onFormSubmit() {
-        this.submitted = true;
+    onSubmit() {
         if (this.loginForm.invalid) {
-            return;
-        }
-        this.loading = true;
-        const user = this.authenticationService.login(this.fval.email.value, this.fval.password.value);
-        if (user != null) {
-            this.router.navigate(['/home']);
-        } else {
-            this.loading = false;
             this.isAuthenticated = false;
             return;
         }
+        this.authenticationService.login(this.fval.email.value, this.fval.password.value)
+        .pipe(first())
+        .subscribe(
+            data => {
+                    console.log(data);
+                    if (data.code == '200') {
+                        this.isAuthenticated = true;
+                        this.router.navigate(['/home']);
+                    } else {
+                        this.isAuthenticated = false;
+                    }
+                });
     }
-    
 }

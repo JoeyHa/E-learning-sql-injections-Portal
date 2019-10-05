@@ -5,5 +5,7 @@ export class Question {
      option2: string;
      option3: string;
      option4: string;
-  currectAnswer: string;
+     currectAnswer: string;
+     qlevel: number;
 }
+

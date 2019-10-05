@@ -1,0 +1,35 @@
+.outerSqure {
+    background-color: white;
+    opacity: 0.83;
+    color: darkgreen;
+    width: 80%;
+    margin: 0 auto;
+    height: 80%;
+}
+
+p#introTxt {
+    font-size: 27px;
+    font-family: serif;
+}
+
+table,
+th,
+td {
+    border: 2px solid black;
+    font-size: 40px;
+    font-family: serif;
+    margin-left: 10px;
+}
+
+td {
+    width: auto;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    font-size: 25px;
+}
+
+a {
+    color: darkgreen;
+    text-decoration: underline;
+    padding: 10px;
+}

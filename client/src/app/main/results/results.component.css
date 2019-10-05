@@ -21,11 +21,16 @@
 .badRresults {
     text-align: center;
     margin-top: 50px;
-    font-size: 50px;
+    font-size: 40px;
     color: black;
     font-weight: bold;
 }
 
 p#next {
     font-size: 35px;
+}
+
+a {
+    color: darkgreen;
+    text-decoration: none;
 }
