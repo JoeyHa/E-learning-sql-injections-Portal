@@ -1,8 +1,9 @@
 <mat-toolbar>
-    <span class="gap" routerLink="/home" *ngIf="!started">Home</span>
-    <span routerLink="/resources" id="resources" style="cursor: pointer">Resources</span>
+    <span class="gap" routerLink="/home">Home</span>
+    <span routerLink="/resources" id="resources" style="cursor: pointer;">Resources</span>
+    <span routerLink="/topScore" id="resources" style="cursor: pointer; padding-left: 10px;">Score Table</span>
     <span class="filler"></span>
-    <h1>{{ title }}</h1>
+    <p id="title">{{ title }}</p>
     <span style="cursor: pointer" (click)='logout()'>Log Out</span>
 </mat-toolbar>
 <div class="welcome">

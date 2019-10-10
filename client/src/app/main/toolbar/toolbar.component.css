@@ -23,11 +23,10 @@
     font-family: serif;
 }
 
-h1 {
+p#title {
     color: darkgreen;
     font-weight: bold;
-    font-size: 45px;
     font-family: serif;
     text-align: center;
-    margin: 30%;
+    padding: 34%;
 }

@@ -1,26 +1,34 @@
-import {Component, Injectable} from '@angular/core';
-import {Sort} from '@angular/material';
+import {Component, Injectable, OnInit} from '@angular/core';
+import { TopScore } from '../topScore.model';
+import { TopScoreService } from '../topScore.service';
+import { Router } from '@angular/router';
+import { TopUser } from '../topUser.model';
 
-export interface User {
-  userName: string,
-  score: number,
-  durationTime: string
-
-}
 
 @Component({
   selector: "app-ScoreTable",
-  templateUrl: "./ScoreTable.component.html",
-  styleUrls: ["./ScoreTable.component.css"]
+  templateUrl: './ScoreTable.component.html',
+  styleUrls: ['./ScoreTable.component.css'],
+  providers: [TopScoreService]
 })
-export class ScoreTable {
-  dataSource: User[] = [
-    { userName: "Joey", score: 356, durationTime: "6:37" },
-    { userName: "Uriel", score: 305, durationTime: "9:51" },
-    { userName: "Timor", score: 305, durationTime: "16:14" },
-    { userName: "Roi", score: 234, durationTime: "10:13" },
-    { userName: "Omer", score: 116, durationTime: "16:23" }
-  ];
-  displayedColumns: string[] = ["userName", "score", "durationTime"];
+export class ScoreTableComponent implements OnInit {
+  dataSource: TopUser[];
+  data: TopScore;
+  displayedColumns: string[] = ['firstName', 'finalScore', 'timeLeft', 'Level'];
+
+  constructor(private topScoreService: TopScoreService, private router: Router ) {
+    this.topScoreService.getTopScoreFromDB()
+    .pipe()
+    .subscribe( score => {
+      if(score.code == '200') {
+        this.dataSource = score.topScore;
+        console.log(this.dataSource[0]);
+      }
+    });
+
+  }
+  ngOnInit() {
+  }
 }
+
 

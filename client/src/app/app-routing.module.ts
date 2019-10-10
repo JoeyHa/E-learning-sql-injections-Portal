@@ -9,6 +9,7 @@ import { ResourcesComponent } from './main/resources/resources.component';
 import { AuthGuard } from './auth/guard';
 import { QuestionsComponent } from './main/questions/questions.component';
 import { ResultsComponent } from './main/results/results.component';
+import { ScoreTableComponent } from './main/ScoreTable/ScoreTable.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'resources', component: ResourcesComponent, canActivate: [AuthGuard] },
   { path: 'questions', component: QuestionsComponent, canActivate: [AuthGuard] },
   { path: 'results', component: ResultsComponent, canActivate: [AuthGuard] },
+  { path: 'topScore', component: ScoreTableComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 

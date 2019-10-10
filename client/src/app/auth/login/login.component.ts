@@ -35,7 +35,6 @@ export class LoginComponent implements OnInit {
             email: ['', Validators.required],
             password: ['', Validators.required]
         });
-
     }
 
     // for accessing to form fields
@@ -50,7 +49,6 @@ export class LoginComponent implements OnInit {
         .pipe(first())
         .subscribe(
             data => {
-                    console.log(data);
                     if (data.code == '200') {
                         this.isAuthenticated = true;
                         this.router.navigate(['/home']);

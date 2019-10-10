@@ -2,6 +2,7 @@ var express = require("express");
 var login = require('./backend/routes/loginroutes');
 var questions = require('./backend/routes/questionroutes');
 var results = require('./backend/routes/resultsroutes');
+var topScore = require('./backend/routes/topScoresroute');
 var bodyParser = require('body-parser');
 var app = express();
 var cors = require('cors');
@@ -30,6 +31,7 @@ router.post('/updateLevel', login.updateUserLevel);
 
 router.post('/questions', questions.getQuestions);
 router.post('/results', results.SaveResultsToDB);
+router.get('/topScore', topScore.getTopScores);
 
 app.use('/api', router);
 

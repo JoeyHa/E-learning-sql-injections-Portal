@@ -25,7 +25,7 @@ import { UserService } from './auth/user.service';
 
 import { MainComponent } from './main/main.component';
 import { PageNotFoundComponent } from './main/page-not-found/page-not-found.component';
-import { ScoreTable } from './main/ScoreTable/ScoreTable.component';
+import { ScoreTableComponent } from './main/ScoreTable/ScoreTable.component';
 import { ToolbarComponent } from './main/toolbar/toolbar.component';
 import { QuizComponent } from './main/quiz/quiz.component';
 import { QuestionsComponent } from './main/questions/questions.component';
@@ -36,7 +36,7 @@ import { ResultsComponent } from './main/results/results.component';
 @NgModule({
   declarations: [
     AppComponent,
-    ScoreTable,
+    ScoreTableComponent,
     ToolbarComponent,
     MainComponent,
     LoginComponent,

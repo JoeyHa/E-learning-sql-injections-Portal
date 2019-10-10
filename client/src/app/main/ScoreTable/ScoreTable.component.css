@@ -1,11 +1,37 @@
+.mat-cell,
+.mat-footer-cell {
+    color: darkgreen;
+    font-size: 23px;
+}
+
+.mat-header-cell {
+    font-size: 34px;
+    color: darkgreen;
+}
+
 P {
-    color: white;
-    font-size: 20px;
-    padding-left: 10%;
+    color: darkgreen;
+    font-size: 40px;
+    margin: 0 auto;
     font-weight: bold;
+    padding-bottom: 25px;
+    text-align: center;
 }
 
 table {
-    width: 30%;
-    color: white;
+    width: 80%;
+    height: 40%;
+}
+
+.outerSqure {
+    background-color: white;
+    opacity: 0.83;
+    color: darkgreen;
+    width: 80%;
+    margin: 0 auto;
+    height: 80%;
+}
+
+table.mat-elevation-z8.mat-table {
+    margin: 0 auto;
 }
