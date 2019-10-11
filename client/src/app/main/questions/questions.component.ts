@@ -30,6 +30,7 @@ export class QuestionsComponent implements OnInit {
   results: Results;
   Qlength: any;
   correctAns: number;
+  timeIsUp: boolean;
 
   constructor(private questionService: QuestionService, private router: Router, private resultsService: ResultsService) {
     if (localStorage.getItem('currentUser') != null) {
@@ -50,6 +51,7 @@ export class QuestionsComponent implements OnInit {
     this.startQuiz();
     this.score = 0;
     this.correctAns = 0;
+    this.timeIsUp = false;
    }
 
 
@@ -58,6 +60,8 @@ export class QuestionsComponent implements OnInit {
       if (this.timeLeft > 0) {
         this.timeLeft--;
       } else {
+        this.timeIsUp = true;
+        this.finishQuiz();
         this.timeLeft = 300;
       }
     }, 1000);
@@ -110,17 +114,24 @@ export class QuestionsComponent implements OnInit {
     this.pauseTimer();
     this.finalScore = this.score + this.timeLeft + this.correctAns;
     const userID = this.currentUser.userID;
-    if (userID != null || userID.toString() !== 'undefined') {
+    if ((userID != null || userID.toString() !== 'undefined') && !this.timeIsUp) {
       this.results = {
         userID: this.currentUser.userID,
         finalScore: this.finalScore,
         currectAnswers: this.correctAns,
         timeLeft: this.timeLeft
       };
-      localStorage.setItem('results', JSON.stringify(this.results));
-      localStorage.removeItem('questions');
-      this.saveUserResult(this.results);
+    } else {
+      this.results = {
+        userID: this.currentUser.userID,
+        finalScore: this.finalScore,
+        currectAnswers: this.correctAns,
+        timeLeft: 0
+      };
     }
+    localStorage.setItem('results', JSON.stringify(this.results));
+    localStorage.removeItem('questions');
+    this.saveUserResult(this.results);
   }
   saveUserResult(res: Results) {
     const userID = res.userID;

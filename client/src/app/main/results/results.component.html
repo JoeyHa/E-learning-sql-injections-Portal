@@ -5,10 +5,12 @@
         <strong>Final Score:</strong> {{this.res.finalScore}} Points, <br><strong>finish time:</strong>{{this.durationTime}} Seconds,
         <br><strong>Correct Answers: </strong> {{this.ActualCurrectAnswers}}/{{Qlength}}.
     </div>
-    <div class="badRresults" *ngIf="!this.levelUp && this.currentUser.level !== 3">You can do better..
+    <div class="badRresults" *ngIf="!this.levelUp && this.currentUser.level !== 3 || isTimeUpFunc()">
+        <div *ngIf="isTimeUpFunc()">Time is Over!!</div>
         <div>
-            You can learn more from <a routerLink="/resources">Resources</a>,<br> Or <a routerLink="/quiz">try again!</a>
+            You can do better.. <br>You can learn more from <a routerLink="/resources">Resources</a>,<br> Or <a routerLink="/quiz">try again!</a>
         </div>
+
     </div>
     <div class="goodResults" *ngIf="this.levelUp && this.currentUser.level !== 3">Good Job! you just Leveled UP!
         <p id="next">Next Quiz will be much harder..</p>

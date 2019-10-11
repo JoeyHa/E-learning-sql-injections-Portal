@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from 'src/app/auth/Authentication.service';
 import { User } from 'src/app/auth/user.model';
 import { ResultsService } from '../results.service';
 import { Results } from '../results.model';
@@ -20,6 +19,7 @@ export class ResultsComponent implements OnInit {
   private res: Results;
   private Qlength;
   private isPerfect = false;
+  private isTimeUp = false;
 
   
   constructor(private resultsSerivce: ResultsService) {
@@ -40,7 +40,6 @@ export class ResultsComponent implements OnInit {
       this.levelUp = true;
       this.resultsSerivce.UpdateUserLevelToDB(this.currentUser.userID, this.currentUser.level);
       localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
-      console.log(this.currentUser);
     }
     this.isPerfect = this.masterUser();
   }
@@ -67,7 +66,12 @@ export class ResultsComponent implements OnInit {
     }
     return this.isPerfect;
   }
-
+  isTimeUpFunc() {
+    if (this.res.timeLeft == 0) {
+      this.isTimeUp = true;
+    }
+    return this.isTimeUp;
+  }
 
   updateUserLevel(user: User) {
     var isUpdated = false;
