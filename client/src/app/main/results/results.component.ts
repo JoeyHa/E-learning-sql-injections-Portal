@@ -21,7 +21,6 @@ export class ResultsComponent implements OnInit {
   private isPerfect = false;
   private isTimeUp = false;
 
-  
   constructor(private resultsSerivce: ResultsService) {
     if (localStorage.getItem('results') != null) {
       this.res = JSON.parse(localStorage.getItem('results'));
@@ -46,7 +45,6 @@ export class ResultsComponent implements OnInit {
 
   ngOnInit() {
   }
-
   isLevelUp(currentLevel: number) {
     this.canUpdate = false;
     if (currentLevel !== 3) {
@@ -84,6 +82,4 @@ export class ResultsComponent implements OnInit {
     }
     return isUpdated;
   }
-
-
 }

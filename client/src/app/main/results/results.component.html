@@ -1,11 +1,11 @@
 <app-toolbar></app-toolbar>
 <div class="outerSqure">
     <div class="showScore">
-        <div class="resHeadline">Quiz Results</div>
+        <div class="resHeadline">-Quiz Results-</div>
         <strong>Final Score:</strong> {{this.res.finalScore}} Points, <br><strong>finish time:</strong>{{this.durationTime}} Seconds,
         <br><strong>Correct Answers: </strong> {{this.ActualCurrectAnswers}}/{{Qlength}}.
     </div>
-    <div class="badRresults" *ngIf="!this.levelUp && this.currentUser.level !== 3 || isTimeUpFunc()">
+    <div class="badRresults" *ngIf="!this.levelUp && !this.isPerfect || isTimeUpFunc()">
         <div *ngIf="isTimeUpFunc()">Time is Over!!</div>
         <div>
             You can do better.. <br>You can learn more from <a routerLink="/resources">Resources</a>,<br> Or <a routerLink="/quiz">try again!</a>
@@ -17,4 +17,5 @@
     </div>
     <div class="master" *ngIf="this.isPerfect"></div>
     <div class="goodResults" *ngIf="this.isPerfect">You Are a True SQL Injections Master!</div>
+
 </div>
