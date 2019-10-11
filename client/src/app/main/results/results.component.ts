@@ -19,13 +19,13 @@ export class ResultsComponent implements OnInit {
   private levelUp = false;
   private res: Results;
   private Qlength;
+  private isPerfect = false;
 
   
   constructor(private resultsSerivce: ResultsService) {
-    // tslint:disable-next-line: max-line-length
     if (localStorage.getItem('results') != null) {
       this.res = JSON.parse(localStorage.getItem('results'));
-      this.ActualCurrectAnswers = this.res.currectAnswers / 100;
+      this.ActualCurrectAnswers = this.res.currectAnswers;
       this.durationTime = 300 - this.res.timeLeft;
     }
     if (localStorage.getItem('currentUser') != null) {
@@ -42,6 +42,7 @@ export class ResultsComponent implements OnInit {
       localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
       console.log(this.currentUser);
     }
+    this.isPerfect = this.masterUser();
   }
 
   ngOnInit() {
@@ -49,14 +50,24 @@ export class ResultsComponent implements OnInit {
 
   isLevelUp(currentLevel: number) {
     this.canUpdate = false;
-    if (currentLevel == 1 && this.ActualCurrectAnswers > this.Qlength * 0.6 ) {
-      this.canUpdate = true;
-    }
-    else if (currentLevel == 2 && this.ActualCurrectAnswers > this.Qlength * 0.75) {
-      this.canUpdate = true;
+    if (currentLevel !== 3) {
+      if (currentLevel == 1 && this.ActualCurrectAnswers > this.Qlength * 0.6 ) {
+        this.canUpdate = true;
+      }
+      else if (currentLevel == 2 && this.ActualCurrectAnswers > this.Qlength * 0.74) {
+        this.canUpdate = true;
+      }
     }
     return this.canUpdate;
   }
+
+  masterUser() {
+    if (this.currentUser.level == 3 && this.ActualCurrectAnswers == this.Qlength) {
+      this.isPerfect = true;
+    }
+    return this.isPerfect;
+  }
+
 
   updateUserLevel(user: User) {
     var isUpdated = false;

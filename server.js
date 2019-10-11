@@ -24,17 +24,23 @@ app.use(function(req, res, next) {
 var router = express.Router();
 
 
-//route to handle user registration
+//route to handle user registration:
 router.post('/register', login.register);
 router.post('/login', login.login);
+
+
+//route to handle user Level:
 router.post('/updateLevel', login.updateUserLevel);
 
+//route to handle Questions:
 router.post('/questions', questions.getQuestions);
+//route to handle Results:
 router.post('/results', results.SaveResultsToDB);
+
+//route to handle TopScore:
 router.get('/topScore', topScore.getTopScores);
 
 app.use('/api', router);
-
 
 
 app.listen(3000);

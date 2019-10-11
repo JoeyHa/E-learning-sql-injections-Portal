@@ -3,7 +3,7 @@ const connection = require('../DB/config');
 
 connection.connect(function(err) {
     if (err) throw err;
-    console.log("Connected!");
+    console.log("Connected To DataBase!");
 });
 
 exports.register = function(req, res) {

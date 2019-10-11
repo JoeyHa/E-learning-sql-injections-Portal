@@ -48,6 +48,10 @@
         color: red;
     }
     
+    .loginFor {
+        color: darkgreen;
+    }
+    
     .form-control {
         border-color: darkgreen;
         outline: 0;

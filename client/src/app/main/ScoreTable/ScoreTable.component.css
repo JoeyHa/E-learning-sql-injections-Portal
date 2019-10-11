@@ -35,3 +35,7 @@ table {
 table.mat-elevation-z8.mat-table {
     margin: 0 auto;
 }
+
+td.mat-cell {
+    border-bottom-color: darkgreen;
+}

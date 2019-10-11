@@ -29,6 +29,7 @@ export class QuestionsComponent implements OnInit {
   public currentUser;
   results: Results;
   Qlength: any;
+  correctAns: number;
 
   constructor(private questionService: QuestionService, private router: Router, private resultsService: ResultsService) {
     if (localStorage.getItem('currentUser') != null) {
@@ -48,6 +49,7 @@ export class QuestionsComponent implements OnInit {
         });
     this.startQuiz();
     this.score = 0;
+    this.correctAns = 0;
    }
 
 
@@ -70,30 +72,49 @@ export class QuestionsComponent implements OnInit {
   ngOnInit() {
   }
 
-
   startQuiz() {
     this.startTimer();
   }
   next() {
-    if (this.selectedOption === this.questions.questions[this.index].currectAnswer)
-    {
-      this.score += 100;
-    }
+    this.checkForCorrectAnswers();
     this.index++;
   }
   back() {
     this.index--;
   }
 
+  checkForCorrectAnswers() {
+    switch (this.currentUser.level) {
+      case 1:
+        if (this.selectedOption === this.questions.questions[this.index].currectAnswer) {
+          this.score += 100;
+          this.correctAns++;
+        }
+        break;
+      case 2:
+        if (this.selectedOption === this.questions.questions[this.index].currectAnswer) {
+          this.score += 200;
+          this.correctAns++;
+        }
+        break;
+      default:
+        if (this.selectedOption === this.questions.questions[this.index].currectAnswer) {
+          this.score += 300;
+          this.correctAns++;
+      }
+    }
+  }
+
   finishQuiz() {
+    this.checkForCorrectAnswers();
     this.pauseTimer();
-    this.finalScore = this.score + this.timeLeft;
+    this.finalScore = this.score + this.timeLeft + this.correctAns;
     const userID = this.currentUser.userID;
     if (userID != null || userID.toString() !== 'undefined') {
       this.results = {
         userID: this.currentUser.userID,
         finalScore: this.finalScore,
-        currectAnswers: this.score,
+        currectAnswers: this.correctAns,
         timeLeft: this.timeLeft
       };
       localStorage.setItem('results', JSON.stringify(this.results));
